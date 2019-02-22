@@ -7,9 +7,10 @@ end_state = []
 
 
 Armempty()
-unstack(initial_state[0],initial_state[1])
+unstack(initial_state[0], initial_state[1])
 holding(initial_state[0])
 putdown(initial_state[0])
+Armempty()
 ontable(initial_state[0])
 clear(initial_state[0])
 clear(initial_state[1])
