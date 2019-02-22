@@ -1,9 +1,10 @@
 from functions import *
-
+from block_stack import *
 
 initial_state = ["a", "e", "c", "b", "d"]
 table = []
 end_state = []
+s = Stack()
 
 
 Armempty()
