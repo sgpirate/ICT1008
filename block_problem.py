@@ -14,7 +14,7 @@ s = Stack()
 initial_data = initial_state.split(",")
 initial_data_count = len(initial_data)
 
-
+# Testing
 print initial_data_count
 while initial_data_count > 0:
     s.push(initial_data[initial_data_count-1])
