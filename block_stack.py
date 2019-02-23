@@ -7,7 +7,7 @@ class Stack:
 
     def push(self, value):
         # increment the size of data using append()
-        self.data.append(0)
+        self.data.append(value)
         self.top += 1
         self.data[self.top] = value
 
