@@ -20,3 +20,7 @@ class Stack:
 
     def isEmpty(self):
         return (self.top == -1)
+
+
+    def peek(self):
+        return self.data[self.top]

@@ -4,13 +4,13 @@ from block_stack import *
 
 
 initial_state = "a,e,c,b,d"  #Start State
-final_state = "a,b,c,d,e" #Goal State
+final_state = "e,d,c,b,a" #Goal State
 
 # demo = ["BA","EDC"]
 # print demo[0][0]
 table = []
 end_state = []
-s = Stack()
+
 initial_data = initial_state.split(",")
 initial_data_count = len(initial_data)
 
@@ -23,16 +23,16 @@ for i in initial_data:
     print "|",i,"|"
 # print initial_data
 print s.data
+print s.peek()
 print s.data.pop(-1)
 print s.data
 Armempty()
-unstack(initial_state[0], initial_state[1])
-holding(initial_state[0])
-putdown(initial_state[0])
+unstack(initial_data[0], initial_data[1])
+holding(initial_data[0])
+putdown(initial_data[0])
 Armempty()
-ontable(initial_state[0])
-clear(initial_state[0])
-clear(initial_state[1])
+ontable(initial_data[0])
+clear(initial_data[0])
 #
 #
 # for i in range(len(initial_state)):
