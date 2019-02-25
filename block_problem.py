@@ -59,10 +59,11 @@ if "on_" in goal_state[-1]:
     last_ele = goal_state[-1].replace("on_","")
     Armempty()
     action_unstack(last_ele[1],table,last_ele[0])
+    print
     goal_state.append("move_"+last_ele[1]+last_ele[0])
     goal_state.append("on_"+last_ele[1]+"_Table"+" clear_"+last_ele[1]+" clear_" +last_ele[0])
-    for i in (goal_state[-1].split(" ")):
-        print i
+
+
 
 
 # print new_list[1]
@@ -70,8 +71,14 @@ if "on_" in goal_state[-1]:
 # print  goal_state[-1].replace("on_","")[1]
 # print "table ",table
 # print "goal state " ,goal_state
+j = len(goal_state[-1].split(" "))
 for i in xrange(len(goal_state)):
+
+    if -i == i:
+        for k in xrange(j):
+            print goal_state[-1].split(" ")[-k]
     print goal_state[-i -1]
+
 # new_list = [on(goal_state_[0][1],goal_state_[0][0]), on(goal_state_[0][2],goal_state_[0][1])]
 #
 # print new_list[0]
