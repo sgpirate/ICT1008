@@ -2,17 +2,17 @@ from block_stack import *
 movecounter = 0
 table = []
 
-def unstack(a,table,b):
+def action_unstack(a,table,b):
     print "Pick up clear block " + a + " from "+ b
     pass
-def stack(a,table,b):
+def action_stack(a,table,b):
     print "Place "+a +" using the arm onto clear block "+ b
     on(a,b)
     pass
-def pickup(a):
+def action_pickup(a):
     print "Lift clear block "+a+ " with the empty arm"
     pass
-def putdown(a):
+def action_putdown(a):
     print "Place the held block "+ a + " onto a free space on the table"
     ontable(a)
     pass
