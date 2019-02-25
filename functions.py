@@ -1,11 +1,11 @@
 from block_stack import *
-s = Stack()
-table_stack = Stack()
+movecounter = 0
+table = []
 
-def unstack(a,b):
+def unstack(a,table,b):
     print "Pick up clear block " + a + " from "+ b
     pass
-def stack(a,b):
+def stack(a,table,b):
     print "Place "+a +" using the arm onto clear block "+ b
     on(a,b)
     pass
@@ -21,14 +21,11 @@ def putdown(a):
 
 
 def on(a,b):
-    print "Block " +a+" is on Block "+ b
-    pass
-def ontable(a):
+    return "Block " +a+" is on Block "+ b
+def ontable(a,table):
     print "Block "+a+ " is on the table"
-    pass
 def clear(a):
-    print "Block "+a+ " is clear"
-    pass
+    return "Block "+a+ " is clear"
 def holding(a):
     print "Arm is holding "+a
     pass
