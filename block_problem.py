@@ -65,7 +65,7 @@ if "on_" in goal_state[-1]:
 
 
 
-
+# Gold Stack Planning 2
 # print new_list[1]
 # print len(goal_state_)
 # print  goal_state[-1].replace("on_","")[1]
