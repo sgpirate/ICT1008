@@ -60,6 +60,7 @@ if "on_" in goal_state[-1]:
     Armempty()
     action_unstack(last_ele[1],table,last_ele[0])
     goal_state.append("move_"+last_ele[1]+last_ele[0])
+    goal_state.append("on_"+last_ele[1]+"_Table"+" clear_"+last_ele[1]+" clear_" +last_ele[0])
 
 
 # print new_list[1]
