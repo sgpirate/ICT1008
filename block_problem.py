@@ -163,7 +163,7 @@ while counter < 50 :
 # if "clear_" in goal_state[-1]:
 
     # print "clear"
-# Gold Stack Planning 7
+# Current Gold Stack Planning 7
 # print new_list[1]
 # print len(goal_state_)
 # print  goal_state[-1].replace("on_","")[1]
