@@ -7,14 +7,14 @@ def action_unstack(a,table,b):
     pass
 def action_stack(a,table,b):
     print "Place "+a +" using the arm onto clear block "+ b
-    on(a,b)
+    # on(a,b)
     pass
 def action_pickup(a):
     print "Lift clear block "+a+ " with the empty arm"
     pass
 def action_putdown(a):
     print "Place the held block "+ a + " onto a free space on the table"
-    ontable(a)
+    # ontable(a)
     pass
 
 
