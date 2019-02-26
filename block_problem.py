@@ -55,6 +55,7 @@ for i in range(len(goal_state_)):
 goal_state.insert(0,msg)
 
 # while len(goal_state) > 1:
+
 if "on_" in goal_state[-1]:
     last_ele = goal_state[-1].replace("on_","")
     Armempty()
@@ -62,9 +63,20 @@ if "on_" in goal_state[-1]:
     print
     goal_state.append("movetotable_"+last_ele[1]+last_ele[0])
     goal_state.append("on_"+last_ele[1]+"_Table"+" clear_"+last_ele[1]+" clear_" +last_ele[0])
+    goal_state.append("clear_"+last_ele[1])
+    goal_state.append("clear_"+last_ele[0])
+    goal_state.append("on_"+last_ele[1]+"_Table")
 
 
 
+
+if "_Table" in goal_state[-1]:
+    goal_state.pop()
+    goal_state.pop()
+
+if "clear_" in goal_state[-1]:
+    
+    # print "clear"
 # Gold Stack Planning 2
 # print new_list[1]
 # print len(goal_state_)
@@ -74,11 +86,14 @@ if "on_" in goal_state[-1]:
 j = len(goal_state[-1].split(" "))
 for i in xrange(len(goal_state)):
 
-    if -i == i:
-        for k in xrange(j):
-            print goal_state[-1].split(" ")[-k]
+    # if -i == i:
+    #     for k in xrange(j):
+    #         print goal_state[-1].split(" ")[-k]
     print goal_state[-i -1]
 
+
+
+print goal_state
 # new_list = [on(goal_state_[0][1],goal_state_[0][0]), on(goal_state_[0][2],goal_state_[0][1])]
 #
 # print new_list[0]
