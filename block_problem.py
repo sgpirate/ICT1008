@@ -3,8 +3,8 @@ from block_stack import *
 
 
 
-start_state = "B AC"  #Start State
-final_state = "CBA" #Goal State
+start_state = "B ACE"  #Start State
+final_state = "ECBA" #Goal State
 KB = []
 goal_state = []
 table = []
@@ -74,7 +74,7 @@ goal_state.insert(0,msg)
 #     break
 counter1 = 0
 counter = 0
-while counter < 5 :
+while counter < 7 :
     for i in KB:
         if counter1 >= len(KB)-1:
             if "on_" in goal_state[-1]:
@@ -104,7 +104,7 @@ while counter < 5 :
             elif "movefromtable_" in goal_state[-1]:
                 plan.append(goal_state[-1])
                 goal_state.pop()
-                print "321321321321"
+                # print "321321321321"
                 fromtable = goal_state[-1].replace("movefromtable_","")
                 # goal_state.append("1")
                 for i in KB:
@@ -115,6 +115,10 @@ while counter < 5 :
                         KB.append("ontable_"+ newi[0])
                         KB.append("clear_" + newi[1])
                         KB.remove(i)
+            elif "movetotable_" in goal_state[-1]:
+                plan.append(goal_state[-1])
+                goal_state.pop()
+                goal_state.append("1")
 
 
 
