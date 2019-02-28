@@ -32,3 +32,13 @@ class Stack:
         for ele in self.data:
             stack.push(ele)
         return stack
+    def toString(self):
+        string1 = ""
+        for i in range(len(self._data)):
+            string1 += str(self._data[i])+ " "
+        return string1
+
+        pass
+
+    def printStack(self):
+        print self._data
