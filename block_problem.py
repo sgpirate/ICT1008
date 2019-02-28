@@ -3,8 +3,8 @@ from block_stack import *
 
 
 
-start_state = "B AC"  #Start State
-final_state = "CBA" #Goal State
+start_state = "B ECA"  #Start State
+final_state = "ECBA" #Goal State
 KB = []
 goal_state = []
 table = []
@@ -63,7 +63,7 @@ goal_state.insert(0,msg)
 counter1 = 0
 counter = 0
 KB.sort(reverse=True)
-while counter < 7:
+while len(goal_state)>0:
     # for i in KB:
     #     if i not in goal_state:
     print len(goal_state)
