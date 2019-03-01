@@ -1,7 +1,7 @@
 # from functions import *
 # from block_stack import *
-start_state = "1 32"  #Start State
-final_state = "123" #Goal State
+start_state = "1 23"  #Start State
+final_state = "132" #Goal State
 
 
 combine_tstack = []
@@ -101,6 +101,8 @@ counter_stack = 0
 counter_pickup  =0
 counter_putdown  =0
 counter_holding  =0
+if start_state == final_state:
+    print "No Change"
 while len(stack) > 0:
     if stack[-1] not in temp_start_stack:
         # print stack[-1]
@@ -150,10 +152,10 @@ while len(stack) > 0:
                         temp_stack = {}
                         # print ele_value[2]
                         temp_stack.update([('type', 'predicate'), ('name', 'ontable'), ('params', ele_value[0])])
-                        temp1_stack.update([('type', 'predicate'), ('name', 'ontable'), ('params', ele_value[0])])
+                        # temp1_stack.update([('type', 'predicate'), ('name', 'ontable'), ('params', ele_value[0])])
                         temp_start_stack.append(temp_stack)
                         temp_start_stack.append(temp2_stack)
-                        temp_start_stack.append(temp1_stack)
+                        # temp_start_stack.append(temp1_stack)
                         arm.append(ele_value[0])
                 # arm.append(ele_value[2])
                 # print ele_value
@@ -207,11 +209,10 @@ while len(stack) > 0:
                 # print
                 combine_tstack.append(temp2_stack)
                 stack.append(combine_tstack)
-
+                counter_pickup = 1
                 for i in combine_tstack:
                     stack.append(i)
                 # print  "did it", stack
-                counter_pickup = 1
             elif stack[-1]['name'] == 'pickup' and counter_pickup == 1:
                 ele_value = stack[-1]['params']
                 # arm.append(ele_value[0])
@@ -224,6 +225,7 @@ while len(stack) > 0:
                 if stack[-1]['name'] == 'holding':
                     stack.pop()
                 # print stack
+                counter_pickup = 0
             elif stack[-1]['name'] == 'putdown' and counter_putdown ==0 :
                 ele_value = stack[-1]['params']
                 temp_stack = {}
@@ -349,3 +351,4 @@ print "Stack: ",stack
 # print combine_tstack
 print "Arm: ", arm
 print "Steps: ",steps
+print len(steps)
