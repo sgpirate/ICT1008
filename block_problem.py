@@ -101,7 +101,7 @@ counter_stack = 0
 counter_pickup  =0
 counter_putdown  =0
 counter_holding  =0
-while counter < 8:
+while len(stack) > 0:
     if stack[-1] not in temp_start_stack:
         # print stack[-1]
         # print temp_start_stack[-1]
@@ -138,16 +138,22 @@ while counter < 8:
                 temp_stack = {}
                 temp1_stack = {}
             elif stack[-1]['name'] == 'unstack' and counter_unstack == 1:
+                temp1_stack = {}
+                temp2_stack = {}
+                temp_stack = {}
                 ele_value = stack[-1]['params']
                 for i in temp_start_stack:
                     if i['params'] == ele_value:
                         temp_start_stack.remove(i)
                         temp2_stack = {}
                         temp2_stack.update([('type', 'predicate'), ('name', 'clear'), ('params', ele_value[2])])
-                        # temp_stack = {}
+                        temp_stack = {}
+                        # print ele_value[2]
                         temp_stack.update([('type', 'predicate'), ('name', 'ontable'), ('params', ele_value[0])])
+                        temp1_stack.update([('type', 'predicate'), ('name', 'ontable'), ('params', ele_value[0])])
                         temp_start_stack.append(temp_stack)
                         temp_start_stack.append(temp2_stack)
+                        temp_start_stack.append(temp1_stack)
                         arm.append(ele_value[0])
                 # arm.append(ele_value[2])
                 # print ele_value
@@ -183,9 +189,9 @@ while counter < 8:
                         ele_index = i
                 # print ele_index
                 temp_start_stack.remove(temp_start_stack[ele_index])
-                print "work"
+                # print "work"
                 stack.pop()
-                print stack
+                # print stack
             elif stack[-1]['name'] == 'pickup' and counter_pickup == 0 :
                 combine_tstack = []
                 # print "here"
@@ -221,18 +227,20 @@ while counter < 8:
             elif stack[-1]['name'] == 'putdown' and counter_putdown ==0 :
                 ele_value = stack[-1]['params']
                 temp_stack = {}
+                temp1_stack = {}
                 temp_stack.update([('type', 'predicate'), ('name', 'holding'), ('params', ele_value[0])])
                 combine_tstack.append(temp_stack)
                 stack.append(combine_tstack)
             elif stack[-1]['name'] == 'putdown' and counter_putdown == 1:
                 ele_value = stack[-1]['params']
-                for i in temp_start_stack:
-                    if i['params'] == ele_value:
-                        temp_start_stack.remove(i)
-                        temp2_stack = {}
-                        temp2_stack.update([('type', 'predicate'), ('name', 'clear'), ('params', ele_value[0])])
-
-                        temp_start_stack.append(temp2_stack)
+                temp1_stack = {}
+                temp2_stack = {}
+                # for i in temp_start_stack:
+                #     if i['params'] == ele_value:
+                        # temp_start_stack.remove(i)
+                        # temp2_stack = {}
+                        # temp2_stack.update([('type', 'predicate'), ('name', 'clear'), ('params', ele_value[0])])
+                        # temp_start_stack.append(temp2_stack)
                 # print ele_value
                 # temp_stack.update([('type', 'predicate'), ('name', 'ontable'), ('params', ele_value[0])])
                 # temp_start_stack.append(temp_stack)
@@ -246,9 +254,11 @@ while counter < 8:
 
         # print stack
         check_list = []
-        # print stack[-1]
+
+
         if len(arm) > 0 :
-            temp1_stack.update([('type', 'action'), ('name', 'putdown'), ('params',arm)])
+            temp1_stack = {}
+            temp1_stack.update([('type', 'action'), ('name', 'putdown'), ('params',arm[0])])
             stack.append(temp1_stack)
         if stack[-1]['name'] == 'on':
             if stack[-1] in temp_start_stack:
@@ -260,49 +270,66 @@ while counter < 8:
                 stack.append(temp1_stack)
 
         # print counter_holding
-        if stack[-1]['name'] == 'holding' and counter_holding == 0:
-            # print "hi"
-            temp_stack = {}
-            temp1_stack = {}
-            ele_value = stack[-1]['params']
-            temp_stack.update([('type', 'action'), ('name', 'armempty'), ('params', "")])
-            stack.append(temp_stack)
-            temp1_stack.update([('type', 'action'), ('name', 'pickup'), ('params', ele_value[0])])
-            stack.append(temp1_stack)
-            counter_holding = 1
+        # print counter, stack[-1]
+        if type(stack[-1]) is not list:
+            if stack[-1]['name'] == 'holding' and counter_holding == 0:
+                # print "hi"
+                temp_stack = {}
+                temp1_stack = {}
+                ele_value = stack[-1]['params']
+                temp_stack.update([('type', 'action'), ('name', 'armempty'), ('params', "")])
+                stack.append(temp_stack)
+                temp1_stack.update([('type', 'action'), ('name', 'pickup'), ('params', ele_value[0])])
+                stack.append(temp1_stack)
+                counter_holding = 1
 
-        if stack[-1]['name'] == 'holding' and counter_holding == 1:
-            print "new"
-            stack.pop()
-            counter_holding = 0
-        # if stack[-1]['name'] == 'pickup':
-        #     ele_value = stack[-1]['params']
-        #     temp_stack = {}
-        #     temp1_stack = {}
-        #     temp2_stack = {}
-        #     temp2_stack.update([('type', 'predicate'), ('name', 'armemepty'), ('params', "")])
-        #     stack.append(temp2_stack)
-        #     temp_stack.update([('type', 'predicate'), ('name', 'ontable'), ('params', ele_value[0])])
-        #     stack.append(temp_stack)
-        #     temp1_stack.update([('type', 'predicate'), ('name', 'clear'), ('params', ele_value[0])])
-        #     stack.append(temp1_stack)
-        if stack[-1]['name'] == 'clear':
-            for i in temp_start_stack:
-                for j in stack:
-                    if type(j) is dict:
-                        if i == j:
-                            if j['params'] == stack[-1]['params']:
-                                check_list.append(j)
-                                stack.remove(j)
-                                # print  j
-                            # if j['name'] == 'clear':
-                                # print j
-                        if j['name'] == 'armempty':
-                            if j['params'] == '':
-                                check_list.append(j)
-                                stack.remove(j)
-        # print "after Clear" , stack
-
+            if stack[-1]['name'] == 'holding' and counter_holding == 1:
+                # print "new"
+                stack.pop()
+                counter_holding = 0
+            # if stack[-1]['name'] == 'pickup':
+            #     ele_value = stack[-1]['params']
+            #     temp_stack = {}
+            #     temp1_stack = {}
+            #     temp2_stack = {}
+            #     temp2_stack.update([('type', 'predicate'), ('name', 'armemepty'), ('params', "")])
+            #     stack.append(temp2_stack)
+            #     temp_stack.update([('type', 'predicate'), ('name', 'ontable'), ('params', ele_value[0])])
+            #     stack.append(temp_stack)
+            #     temp1_stack.update([('type', 'predicate'), ('name', 'clear'), ('params', ele_value[0])])
+            #     stack.append(temp1_stack)
+            if stack[-1]['name'] == 'clear':
+                for i in temp_start_stack:
+                    for j in stack:
+                        if type(j) is dict:
+                            if i == j:
+                                if j['params'] == stack[-1]['params']:
+                                    check_list.append(j)
+                                    stack.remove(j)
+                                    # print  j
+                                # if j['name'] == 'clear':
+                                    # print j
+                            if j['name'] == 'armempty':
+                                if j['params'] == '':
+                                    check_list.append(j)
+                                    stack.remove(j)
+            # print "after Clear" , stack
+    # print stack[-1]
+        if type(stack[-1]) is not list:
+            if stack[-1]['name'] == "armempty" and stack[-1]['params'] == "":
+                stack.pop()
+    counter_putdown =1
+    counter_unstack = 1
+    temp1_stack = {}
+    temp2_stack = {}
+    temp_stack = {}
+    # print stack
+    # print counter
+    counter += 1
+    # print counter
+# print stack[-1][oo'name']
+# if not arm:
+#     print True
     if type(stack[-1]) is list:
         # list_counter = 0
         # list_len = len(check_list)-1
@@ -316,21 +343,6 @@ while counter < 8:
         #         stack.pop()
         #         check_list = []
         stack.pop()
-
-    # print stack[-1]
-    if type(stack[-1]) is not list:
-        if stack[-1]['name'] == "armempty" and stack[-1]['params'] == "":
-            stack.pop()
-    counter_putdown =1
-    counter_unstack = 1
-    print stack
-    print counter
-    counter += 1
-    print counter
-# print stack[-1][oo'name']
-# if not arm:
-#     print True
-
 print "Temp_start_Stack: ", temp_start_stack
 print "Temp Stack: ", temp_stack
 print "Stack: ",stack
